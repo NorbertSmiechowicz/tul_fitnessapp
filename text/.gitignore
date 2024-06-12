@@ -1,0 +1,6 @@
+*
+!.gitignore
+# used source files
+!*.h
+!*.cpp
+!*.py
