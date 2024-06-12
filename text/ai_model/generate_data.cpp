@@ -1,8 +1,7 @@
-#include <iostream>
-#include <vector>
+#include "data_structures.h"
 
 int main()
 {
-    std::cout<<"hi :3";
+    //std::cout<<sizeof(data::model_input);
     return 0;
 }
