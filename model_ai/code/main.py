@@ -1,7 +1,7 @@
 from model import RNN
 import torch
 import os
-from tul_fitnessapp.model_ai.code.logging_elastic_config import logger
+from logging_elastic_config import logger
 import datetime as dt
 #Global path settings
 repo_name   = "tul_fitnessapp"
