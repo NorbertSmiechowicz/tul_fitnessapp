@@ -1,6 +1,8 @@
 from model import RNN
 import torch
 import os
+from tul_fitnessapp.model_ai.code.logging_elastic_config import logger
+import datetime as dt
 #Global path settings
 repo_name   = "tul_fitnessapp"
 path_script = os.path.dirname(os.path.realpath(__file__))
@@ -12,13 +14,19 @@ path_data   = path_dir + "\\data\\"
 
 
 def save_model(model, name):
-    torch.save(model, path_models + f'{name}.pth')
-    #LOGOWANIE 
+    try:
+        torch.save(model, path_models + f'{name}.pth')
+        logger.info(f"Saved model: {name} at: {dt.datetime.now()}")
+    except Exception as e:
+        logger.error(f"Failed to save a model: {name}! Error code: {e} {dt.datetime.now()}")
 
 def load_model(name):
-    #LOGOWANIE 
-    return torch.load(path_models + f'{name}.pth')
-
+    try:
+        model = torch.load(path_models + f'{name}.pth')
+        logger.info(f"Loaded model: {name} at: {dt.datetime.now()}")
+        return model
+    except Exception as e:
+        logger.error(f"Failed to load a model: {name}! Error code: {e} {dt.datetime.now()}")
 
 
 def main():
