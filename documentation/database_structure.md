@@ -11,7 +11,6 @@
 - nazwa ćwiczenia
 - obciążenie (optional)
 - optional, co najmniej jedno:
-  
    - ilość powtórzeń
    - czas wykonywania
   
