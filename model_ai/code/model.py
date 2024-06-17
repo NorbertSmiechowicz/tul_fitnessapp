@@ -7,6 +7,8 @@ class RNN(nn.Module):
 
         super(RNN, self).__init__()
 
+        
+
 
     def forward(self, out):
         pass

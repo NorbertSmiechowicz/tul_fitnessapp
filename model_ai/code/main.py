@@ -19,17 +19,16 @@ def load_model(name):
 
 
 def main():
-    print(path_models)
-    print(path_script)
-    print(path_dir)
+    print(f"Path to models: {path_models}")
+    print(f"Path to script: {path_script}")
+    print(f"Path to AI_MODELS directory: {path_dir}")
+    print(f"Torch version: {torch.__version__}")
 
     try:
         model = load_model(name='CNN_cifar')
         print("Model downloaded succesfully!!")
     except Exception as e:
         print(f"An error occurred: {e}")
-
-    
 
 
 if __name__ == "__main__":
