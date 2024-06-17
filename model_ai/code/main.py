@@ -3,6 +3,9 @@ import torch
 import os
 from logging_elastic_config import logger
 import datetime as dt
+from rabbitmq import send_message_rabbit, receive_message_rabbit
+
+
 #Global path settings
 repo_name   = "tul_fitnessapp"
 path_script = os.path.dirname(os.path.realpath(__file__))
