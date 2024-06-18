@@ -1,0 +1,26 @@
+version: '3.9'
+
+services:
+  rabbit:
+    image: rabbitmq
+    container_name: rabbitmqServer
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+  rabbit_core:
+    build: ./rabbit_core
+    container_name: rabbit_core
+    ports:
+      - "2137:2137"
+    depends_on:
+      - rabbit
+  
+  rabbit_ai:
+    build: ./rabbit_ai
+    container_name: rabbit_ai
+    ports:
+      - "2138:2138"
+    depends_on:
+      - rabbit
+    
