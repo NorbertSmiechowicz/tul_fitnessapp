@@ -2,4 +2,5 @@ version: '3.18'
 services:
   ai_model:
 
-  database:
+  rabbitmq:
+    image: rabbitmq
