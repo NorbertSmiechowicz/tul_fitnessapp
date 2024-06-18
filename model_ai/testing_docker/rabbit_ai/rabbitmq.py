@@ -3,7 +3,7 @@ from pika.exchange_type import ExchangeType
 import time
 
 class RabbitMQ_comms:
-    def __init__(self) -> None:
+    def init(self) -> None:
         self.credentials = pika.PlainCredentials('guest', 'guest')
         self.parameters = pika.ConnectionParameters('rabbit', 5672, '/', self.credentials)  # Use 'rabbit' as hostname (service name in Docker Compose)
         self.connection = None

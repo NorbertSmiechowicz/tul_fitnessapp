@@ -20,8 +20,8 @@ services:
     ports:
       - "2137:2137"
     depends_on:
-        rabbit:
-          condition: service_healthy
+        - mongo
+        
   
   rabbit_ai:
     build: ./rabbit_ai
@@ -29,7 +29,13 @@ services:
     ports:
       - "2138:2138"
     depends_on:
-      rabbit:
+      - mongo
+  
+  mongo:
+    build: ./db
+    container_name: db
+    ports:
+      - "27017:27017"
+    depends_on:
+        rabbit:
           condition: service_healthy
-    
-    
