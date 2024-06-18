@@ -18,36 +18,31 @@ Consumer Script:
 
 """
 
-def send_message_rabbit(message):
-    # Connect to RabbitMQ server
-    connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
-    channel = connection.channel()
-    # Declare a queue
-    channel.queue_declare(queue='hello')
-    # Send a message
-    channel.basic_publish(exchange='',
-                        routing_key='from_MODULE_AI',
-                        body=message)
-    connection.close()
+class RabbitMQ_comms:
+    def __init__(self) -> None:
+      self.connection =  pika.BlockingConnection(pika.ConnectionParameters('localhost'))
 
-def receive_message_rabbit():
-    message_received = 0 
-    connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
-    channel = connection.channel()
 
-    # Declare a queue (make sure the queue exists)
-    channel.queue_declare(queue='hello')
+    def send_message(self, message):
+        channel = self.connection.channel()
+        channel.queue_declare(queue='hello')
+        channel.basic_publish(exchange='',
+                            routing_key='from_MODULE_AI',
+                            body=message)
+        self.connection.close()
 
-    # Callback function to process received messages
-    def callback(ch, method, properties, message_received):
-        print(f" [x] Received {message_received}")
+    def receive_message(self):
+        message_received = 0 
+        channel = self.connection.channel()
 
-    # Set up subscription on the queue
-    channel.basic_consume(queue='hello',
-                        on_message_callback=callback,
-                        auto_ack=True)
+        channel.queue_declare(queue='hello')
 
-    print(' [*] Waiting for messages. To exit press CTRL+C')
-    channel.start_consuming()
-    return message_received
+        def callback(ch, method, properties, message_received):
+            print(f" [x] Received {message_received}")
+
+        channel.basic_consume(queue='hello', on_message_callback=callback, auto_ack=True)
+
+        print(' [*] Waiting for messages. To exit press CTRL+C')
+        channel.start_consuming()
+        return message_received
 
