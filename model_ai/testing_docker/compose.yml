@@ -31,5 +31,17 @@ services:
     depends_on:
       rabbit:
           condition: service_healthy
+        
+  mongo:
+    build: ./mongodb
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+  
+volumes:
+  mongodb_data:
+
     
     
