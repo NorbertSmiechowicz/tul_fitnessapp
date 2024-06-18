@@ -71,6 +71,21 @@ services:
     depends_on:
       - elasticsearch
 
+  nginx:
+    image: nginx
+    container_name: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - rabbit_core
+      - rabbit_ai
+      - mongo
+      - elasticsearch
+      - logstash
+      - kibana
+
 volumes:
   mongodb_data:
   es_data:
