@@ -73,6 +73,12 @@ for record in mydoc:
     # Logowanie każdego rekordu
     logger.info(f"Fetched record from MongoDB: {record}")
 
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return "Welcome to rabbit core"
+
 # Inicjalizacja RabbitMQ
 rabbit2 = RabbitMQ_comms()
 
