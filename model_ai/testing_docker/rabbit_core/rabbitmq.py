@@ -1,41 +1,37 @@
 import pika
 from pika.exchange_type import ExchangeType
-
-"""
-Publisher Script:
-
-    Connection: Establish a connection to the RabbitMQ server using pika.ConnectionParameters.
-    Channel: Open a channel through which communication will take place.
-    Queue Declaration: Ensure the queue named 'hello' exists.
-    Publish Message: Use basic_publish to send a message to the queue.
-    Close Connection: Close the connection once the message is sent.
-Consumer Script:
-
-    Connection: Similar to the publisher, establish a connection to the RabbitMQ server.
-    Channel: Open a channel.
-    Queue Declaration: Ensure the queue named 'hello' exists.
-    Callback Function: Define a callback function that will process messages from the queue.
-    Start Consuming: Use basic_consume to subscribe to the queue and start consuming messages. The callback function is called whenever a message is received.
-
-"""
+import time
 
 class RabbitMQ_comms:
     def __init__(self) -> None:
-        self.credentials = pika.PlainCredentials('your_username', 'your_password')
-        self.parameters = pika.ConnectionParameters('localhost', 5672, '/', self.credentials)
-        self.connection = pika.BlockingConnection(self.parameters)
-        self.channel = self.connection.channel()
+        self.credentials = pika.PlainCredentials('guest', 'guest')
+        self.parameters = pika.ConnectionParameters('rabbit', 5672, '/', self.credentials)  # Use 'rabbit' as hostname (service name in Docker Compose)
+        self.connection = None
+        self.channel = None
+        self.connect()
+
+    def connect(self):
+        attempts = 0
+        while attempts < 3:
+            try:
+                self.connection = pika.BlockingConnection(self.parameters)
+                self.channel = self.connection.channel()
+                return
+            except pika.exceptions.AMQPConnectionError as e:
+                print(f"Failed to connect to RabbitMQ: {e}")
+                attempts += 1
+                time.sleep(5)  # Wait for 5 seconds before retrying
+
+        raise RuntimeError("Failed to establish connection to RabbitMQ after multiple attempts")
 
     def send_message(self, message):
         self.channel.exchange_declare(exchange='FoodApp', exchange_type=ExchangeType.fanout)
         self.channel.basic_publish(exchange='FoodApp', routing_key='', body=message)
         print(f"sent message: {message}")
-        self.connection.close()
 
     def receive_message(self):
         def on_message_received(ch, method, properties, body):
             print(f"firstconsumer: received new message: {body}")
-            self.connection.close()
 
         self.channel.exchange_declare(exchange='FoodApp', exchange_type=ExchangeType.fanout)
 
@@ -48,5 +44,3 @@ class RabbitMQ_comms:
         print("Starting Consuming")
 
         self.channel.start_consuming()
-
-        print("*********************")

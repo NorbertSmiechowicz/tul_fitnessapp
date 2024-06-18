@@ -7,6 +7,12 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
+    healthcheck:
+      test: ["CMD", "rabbitmqctl", "status"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
 
   rabbit_core:
     build: ./rabbit_core
@@ -14,7 +20,8 @@ services:
     ports:
       - "2137:2137"
     depends_on:
-      - rabbit
+        rabbit:
+          condition: service_healthy
   
   rabbit_ai:
     build: ./rabbit_ai
@@ -22,5 +29,7 @@ services:
     ports:
       - "2138:2138"
     depends_on:
-      - rabbit
+      rabbit:
+          condition: service_healthy
+    
     
