@@ -31,3 +31,16 @@ while(1):
 # for record in mydoc:
 #     print(record['name'])
 #     print(type(record))
+
+
+import logging
+import logstash
+
+host = 'logstash'
+
+logger = logging.getLogger('rabbit_core')
+logger.setLevel(logging.INFO)
+logger.addHandler(logstash.TCPLogstashHandler(host, 5044, version=1))
+
+# Example log
+logger.info('Rabbit Core Service started')
