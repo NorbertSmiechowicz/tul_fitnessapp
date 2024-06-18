@@ -1,42 +1,44 @@
-# Osoby
-- wzrost
-- waga
-- płeć
-- wiek
-- styl zycia (na potrzeby baseline kcal)
-- wszystkie id do innych tabel itd
+# clients
+- height
+- weight
+- sex
+- age
+- lifestyle activity measure
 
-# Osoba / ćwiczenie
-- data aktywności
-- nazwa ćwiczenia
-- obciążenie (optional)
-- optional, co najmniej jedno:
-   - ilość powtórzeń
-   - czas wykonywania
-  
+# client / exercise unit
+- day of performing activity
+- exercise name
+- ( load OR [ nothing ] )
+- ( repetitions OR time )
 
-# typy ćwiczeń
-- nazwa ćwiczenia
-- target ćwiczenia (np. cardio, łapy, nogi)
+# client / exercise current performance
+- exercise name
+- ( averaged load OR [ nothing ] )
+- ( repetitions OR time )
 
-# Osoba / custom ćwiczenia
-- nazwa ćwiczenia
-- target ćwiczenia (np. cardio, łapy, nogi)
+# exercise type
+- exercise name
+- exercise target (e.g. cardio, legs, arms)
 
-# Osoba / posiłek
-- data aktywności
-- nazwa artykułu żywność.
-- waga w gramach
-# Osoba / posiłki template custom 
-- nazwa atykuły żywność.
-- normowana waga w g
-- białko / 100g
-- węglowodany / 100g
-- tłuszcze / 100g
+# client / exercise type custom
+- exercise name
+- exercise target (e.g. cardio, legs, arms)
 
-# posiłki template verified
-- nazwa atykuły żywność.
-- normowana waga w g
-- białko / 100g
-- węglowodany / 100g
-- tłuszcze / 100g
+# client / food unit
+- day of performing activity
+- food name
+- weight in grams
+
+# food type 
+- food name
+- normal weight in grams
+- protein / 100g
+- carbs / 100g
+- fats / 100g
+
+# client / food type custom 
+- food name
+- normal weight in grams
+- protein / 100g
+- carbs / 100g
+- fats / 100g
