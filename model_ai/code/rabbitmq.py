@@ -1,4 +1,5 @@
 import pika
+from pika.exchange_type import ExchangeType
 
 """
 Publisher Script:
@@ -21,28 +22,30 @@ Consumer Script:
 class RabbitMQ_comms:
     def __init__(self) -> None:
       self.connection =  pika.BlockingConnection(pika.ConnectionParameters('localhost'))
+      self.channel = self.connection.channel()
 
 
     def send_message(self, message):
-        channel = self.connection.channel()
-        channel.queue_declare(queue='hello')
-        channel.basic_publish(exchange='',
-                            routing_key='from_MODULE_AI',
-                            body=message)
+        self.channel.exchange_declare(exchange='FoodApp', exchange_type=ExchangeType.fanout)
+        self.channel.basic_publish(exchange='FoodApp', routing_key='', body=message)
+        print(f"sent message: {message}")
         self.connection.close()
 
     def receive_message(self):
-        message_received = 0 
-        channel = self.connection.channel()
+        def on_message_received(ch, method, properties, body):
+            print(f"firstconsumer: received new message: {body}")
+            self.connection.close()
 
-        channel.queue_declare(queue='hello')
+        self.channel.exchange_declare(exchange='FoodApp', exchange_type=ExchangeType.fanout)
 
-        def callback(ch, method, properties, message_received):
-            print(f" [x] Received {message_received}")
+        queue = self.channel.queue_declare(queue='', exclusive=True)
 
-        channel.basic_consume(queue='hello', on_message_callback=callback, auto_ack=True)
+        self.channel.queue_bind(exchange='FoodApp', queue=queue.method.queue)
 
-        print(' [*] Waiting for messages. To exit press CTRL+C')
-        channel.start_consuming()
-        return message_received
+        self.channel.basic_consume(queue=queue.method.queue, auto_ack=True, on_message_callback=on_message_received)
 
+        print("Starting Consuming")
+
+        self.channel.start_consuming()
+
+        print("*********************")
