@@ -1,0 +1,5 @@
+FROM gcc:latest
+WORKDIR /usr/src/myapp
+COPY . .
+RUN g++ -o echo main.cpp
+CMD ["./echo", "jakub", "wlazlo", "235678"]
