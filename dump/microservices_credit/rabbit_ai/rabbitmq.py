@@ -29,10 +29,8 @@ class RabbitMQ_comms:
         self.channel.basic_publish(exchange='FoodApp', routing_key='', body=message)
         print(f"sent message: {message}")
 
-    def receive_message(self):
-        def on_message_received(ch, method, properties, body):
-            print(f"firstconsumer: received new message: {body}")
-
+    def receive_message(self, on_message_received):
+        
         self.channel.exchange_declare(exchange='FoodApp', exchange_type=ExchangeType.fanout)
 
         queue = self.channel.queue_declare(queue='', exclusive=True)
