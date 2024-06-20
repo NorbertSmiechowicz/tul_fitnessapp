@@ -1,5 +1,13 @@
 {
-    "name": "John Doe",
-    "age": 30,
-    "city": "New York"
+    "client A": {
+            "name": "Majkel Dżordan",
+            "age": 21,
+            "city": "New York"
+        },
+    "client B": {
+            "name": "Johnny Cinco",
+            "age": 37,
+            "city": "New York"
+        }
+    
 }
