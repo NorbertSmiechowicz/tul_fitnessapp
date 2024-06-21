@@ -7,10 +7,8 @@ from rabbitmq import send_message_rabbit, receive_message_rabbit
 
 
 #Global path settings
-repo_name   = "tul_fitnessapp"
 path_script = os.path.dirname(os.path.realpath(__file__))
-path_dir    = os.path.dirname(os.path.realpath(path_script))
-index       = path_script.find(repo_name)
+path_dir    = os.path.dirname(os.path.dirname(os.path.realpath(path_script)))
 path_models = path_dir + "\\models\\"
 path_data   = path_dir + "\\data\\"
 

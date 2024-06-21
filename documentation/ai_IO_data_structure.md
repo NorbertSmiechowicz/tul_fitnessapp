@@ -6,10 +6,15 @@ Model can be used in two variants, depending on which info is provided:
 - age
 - sex
 - height
+- weight
 
 ## Qualifiers
 - cumulative weight difference 
-- cumulative strength difference
+- cumulative cardio difference
+- cumulative strength arms difference
+- cumulative strength legs difference
+- cumulative strength core difference
+- cumulative strength chest difference
 
 ## List 42 of: Day Summary
 - protein
