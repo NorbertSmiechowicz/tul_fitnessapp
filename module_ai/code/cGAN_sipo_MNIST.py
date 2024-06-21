@@ -8,22 +8,44 @@ import numpy as np
 import os
 import datetime as dt
 
-# Ustawienia
-batch_size = 64
-latent_dim = 100
-num_classes = 10
-image_size = 28
-channels = 1
 
-# Transformacje dla danych MNIST
-transform = transforms.Compose([
-    transforms.ToTensor(),
-    transforms.Normalize((0.5,), (0.5,))
-])
+cifar10_classes = [    'airplane', 'automobile', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck']
+num_epochs = 30
+train = False
+#name_data = 'CIFAR10'
+name_data = 'MNIST'
+if name_data is 'CIFAR10':
+    # Ustawienia
+    batch_size = 64
+    latent_dim = 100
+    num_classes = 10
+    image_size = 32
+    channels = 3
 
-# Ładowanie danych MNIST
-train_dataset = datasets.MNIST(root='./data', train=True, download=True, transform=transform)
-train_loader  = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
+    transform = transforms.Compose([
+        transforms.ToTensor(),
+        transforms.Normalize((0.5,), (0.5,), (0.5,))
+    ])
+
+    # Ładowanie danych MNIST
+    train_dataset = datasets.CIFAR10(root='./data', train=True, download=True, transform=transform)
+    train_loader  = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
+elif name_data is 'MNIST':
+    # Ustawienia
+    batch_size = 64
+    latent_dim = 100
+    num_classes = 10
+    image_size = 28
+    channels = 1
+
+    transform = transforms.Compose([
+        transforms.ToTensor(),
+        transforms.Normalize((0.5,), (0.5,))
+    ])
+
+    # Ładowanie danych MNIST
+    train_dataset = datasets.MNIST(root='./data', train=True, download=True, transform=transform)
+    train_loader  = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
 
 # Global path settings
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -34,20 +56,20 @@ index = path_script.find(repo_name)
 path_models = os.path.join(path_dir, "models")
 path_data = os.path.join(path_dir, "data")
 
-def save_model(model, name):
+def save_model(model):
     try:
-        torch.save(model, os.path.join(path_models, f'{name}'))
-        print(f"Saved model: {name} at: {dt.datetime.now()}")
+        torch.save(model, os.path.join(path_models, f'{name_data}'))
+        print(f"Saved model: {name_data} at: {dt.datetime.now()}")
     except Exception as e:
-        print(f"Failed to save a model: {name}! Error code: {e} {dt.datetime.now()}")
+        print(f"Failed to save a model: {name_data}! Error code: {e} {dt.datetime.now()}")
 
-def load_model(name):
+def load_model():
     try:
-        model = torch.load(os.path.join(path_models, f'{name}'))
-        print(f"Loaded model: {name} at: {dt.datetime.now()}")
+        model = torch.load(os.path.join(path_models, f'{name_data}'))
+        print(f"Loaded model: {name_data} at: {dt.datetime.now()}")
         return model
     except Exception as e:
-        print(f"Failed to load a model: {name}! Error code: {e} {dt.datetime.now()}")
+        print(f"Failed to load a model: {name_data}! Error code: {e} {dt.datetime.now()}")
 
 
 class Generator(nn.Module):
@@ -104,33 +126,31 @@ class Discriminator(nn.Module):
         return validity
 
 
-def generate_image(generator, class_label):
+def generate_image(generator, class_label, ax):
     z = torch.randn(1, latent_dim).to(device)
     label = torch.tensor([class_label], device=device)
     generated_img = generator(z, label).cpu().detach().numpy()
-    plt.imshow(generated_img.squeeze(), cmap='gray')
-    plt.show()
+    if name_data is 'CIFAR10':
+        generated_img = np.transpose(generated_img, (0, 2, 3, 1)).astype(np.float32)
+        ax.set_title(f"GEN for {cifar10_classes[class_label]}")
+        ax.tick_params(axis='both', which='both', bottom=False, left=False, labelbottom=False, labelleft=False)
+    else:
+        ax.tick_params(axis='both', which='both', bottom=False, left=False, labelbottom=False, labelleft=False)
+        ax.set_title(f"GEN for {class_label}")
 
-
+    ax.imshow(generated_img.squeeze())
 
 
 if __name__ == "__main__":
 
-    num_epochs = 30
-    train = False
-   
-    # Inicjalizacja generatora i dyskryminatora
     generator = Generator()
     discriminator = Discriminator()
 
-    # Optymalizatory
     optimizer_G = optim.Adam(generator.parameters(), lr=0.0002, betas=(0.5, 0.999))
     optimizer_D = optim.Adam(discriminator.parameters(), lr=0.0002, betas=(0.5, 0.999))
 
-    # Funkcja straty
     adversarial_loss = nn.BCELoss()
 
-    # Użycie GPU, jeśli dostępne
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     generator.to(device)
     discriminator.to(device)
@@ -174,15 +194,12 @@ if __name__ == "__main__":
                 
                 if i % 100 == 0:
                     print(f"[Epoch {epoch}/{num_epochs}] [Batch {i}/{len(train_loader)}] [D loss: {d_loss.item():.4f}] [G loss: {g_loss.item():.4f}]")
-        save_model(generator, "cGAN.pth")
+        save_model(generator)
     else:
-        generator = load_model("cGAN.pth")
-        generate_image(generator, 0)
-        generate_image(generator, 1)
-        generate_image(generator, 3)
-        generate_image(generator, 4)
-        generate_image(generator, 6)
-        generate_image(generator, 9)
-        generate_image(generator, 8)
+        generator = load_model()
+        _, ax = plt.subplots(5,2, figsize=(10,7))
+        for index in range(10):
+            generate_image(generator, index, ax[index // 2][index % 2])
+        plt.show()
 
 
