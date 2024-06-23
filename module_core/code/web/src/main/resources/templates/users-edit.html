@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <meta name="description" content=""/>
     <meta name="author" content=""/>
-    <title>create user</title>
+    <title>Update account</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico"/>
     <!-- Core theme CSS (includes Bootstrap)-->
@@ -19,7 +19,7 @@
     <div class="container">
         <div class="col-md-7 col-lg-8">
             <h4 class="mb-3">Update your account</h4>
-            <form role="form" method="post" th:action="@{/users/{userId}/edit(userId=${user.Id})}" th:object="${user}">
+            <form role="form" method="post" th:action="@{/users/{userId}/edit(userId=${user.id})}" th:object="${user}">
                 <input type="hidden" th:field="*{id}">
                 <div class="row g-3">
                     <div class="col-sm-6">
@@ -31,6 +31,7 @@
                                 name="name"
                                 th:field="*{name}"
                                 placeholder="name">
+                        <p th:if="${#fields.hasErrors('name')}" class="text-danger" th:errors="*{name}"></p>
                     </div>
 
                     <div class="col-sm-6">
@@ -42,6 +43,7 @@
                                 name="lastName"
                                 th:field="*{lastName}"
                                 placeholder="lastName">
+                        <p th:if="${#fields.hasErrors('lastName')}" class="text-danger" th:errors="*{lastName}"></p>
                     </div>
 
                     <div class="col-12">
@@ -52,9 +54,10 @@
                                     type="text"
                                     class="form-control"
                                     id="userName"
-                                    name="name"
+                                    name="userName"
                                     th:field="*{userName}"
                                     placeholder="userName">
+                            <p th:if="${#fields.hasErrors('userName')}" class="text-danger" th:errors="*{userName}"></p>
                         </div>
                     </div>
 
@@ -67,6 +70,7 @@
                                 name="email"
                                 th:field="*{email}"
                                 placeholder="you@example.com">
+                        <p th:if="${#fields.hasErrors('email')}" class="text-danger" th:errors="*{email}"></p>
                     </div>
 
                     <div class="col-12">
@@ -78,11 +82,12 @@
                                 name="password"
                                 th:field="*{password}"
                                 placeholder="password">
+                        <p th:if="${#fields.hasErrors('password')}" class="text-danger" th:errors="*{password}"></p>
                     </div>
                 </div>
                 <div>
                     <br>
-                    <button class="w-100 btn btn-primary btn-lg" type="submit">Create account</button>
+                    <button class="w-100 btn btn-primary btn-lg" type="submit">Update your account</button>
                 </div>
             </form>
         </div>

@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <meta name="description" content=""/>
     <meta name="author" content=""/>
-    <title>create user</title>
+    <title>Create User</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico"/>
     <!-- Core theme CSS (includes Bootstrap)-->
@@ -30,6 +30,7 @@
                                 name="name"
                                 th:field="*{name}"
                                 placeholder="name">
+                        <p th:if="${#fields.hasErrors('name')}" class="text-danger" th:errors="*{name}"></p>
                     </div>
 
                     <div class="col-sm-6">
@@ -41,6 +42,7 @@
                                 name="lastName"
                                 th:field="*{lastName}"
                                 placeholder="lastName">
+                        <p th:if="${#fields.hasErrors('lastName')}" class="text-danger" th:errors="*{lastName}"></p>
                     </div>
 
                     <div class="col-12">
@@ -51,9 +53,10 @@
                                     type="text"
                                     class="form-control"
                                     id="userName"
-                                    name="name"
+                                    name="userName"
                                     th:field="*{userName}"
                                     placeholder="userName">
+                            <p th:if="${#fields.hasErrors('userName')}" class="text-danger" th:errors="*{userName}"></p>
                         </div>
                     </div>
 
@@ -66,6 +69,7 @@
                                 name="email"
                                 th:field="*{email}"
                                 placeholder="you@example.com">
+                        <p th:if="${#fields.hasErrors('email')}" class="text-danger" th:errors="*{email}"></p>
                     </div>
 
                     <div class="col-12">
@@ -77,6 +81,7 @@
                                 name="password"
                                 th:field="*{password}"
                                 placeholder="password">
+                        <p th:if="${#fields.hasErrors('password')}" class="text-danger" th:errors="*{password}"></p>
                     </div>
                 </div>
                 <div>

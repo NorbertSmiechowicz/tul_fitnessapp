@@ -17,6 +17,7 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository) {
+
         this.userRepository = userRepository;
     }
 
@@ -27,12 +28,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User saveUser(User user) {
+    public User saveUser(UserDto userDto) {
+        User user = mapToUser(userDto);
         return userRepository.save(user);
     }
 
     @Override
-    public UserDto findUserById(long userId) {
+    public UserDto findUserById(int userId) {
         User user = userRepository.findById(userId).get();
         return mapToUserDto(user) ;
     }
@@ -43,16 +45,16 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
 
-    private User mapToUser(UserDto user) {
-        User userDto = User.builder()
-                .id(user.getId())
-                .name(user.getName())
-                .lastName(user.getLastName())
-                .userName(user.getUserName())
-                .email(user.getEmail())
-                .password(user.getPassword())
+    private User mapToUser(UserDto userDto) {
+        User user = User.builder()
+                .id(userDto.getId())
+                .name(userDto.getName())
+                .lastName(userDto.getLastName())
+                .userName(userDto.getUserName())
+                .email(userDto.getEmail())
+                .password(userDto.getPassword())
                 .build();
-        return userDto;
+        return user;
     }
 
     private UserDto mapToUserDto(User user) {
