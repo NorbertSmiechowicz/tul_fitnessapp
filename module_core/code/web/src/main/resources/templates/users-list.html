@@ -28,7 +28,9 @@
                         <p th:text="${user.userName}" class="card-text"></p>
                         <p th:text="${user.email}" class="card-text"></p>
                     </div>
-                    <div class="card-footer"><a class="btn btn-primary btn-sm" href="#!">More Info</a></div>
+                        <div class="card-footer">
+                            <a class="btn btn-primary" th:href="@{/users/{userId}/edit(userId=${user.id})}">Edit</a>
+                        </div>
                 </div>
             </div>
         </div>

@@ -31,6 +31,30 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user);
     }
 
+    @Override
+    public UserDto findUserById(long userId) {
+        User user = userRepository.findById(userId).get();
+        return mapToUserDto(user) ;
+    }
+
+    @Override
+    public void updateUser(UserDto userDto) {
+        User user = mapToUser(userDto);
+        userRepository.save(user);
+    }
+
+    private User mapToUser(UserDto user) {
+        User userDto = User.builder()
+                .id(user.getId())
+                .name(user.getName())
+                .lastName(user.getLastName())
+                .userName(user.getUserName())
+                .email(user.getEmail())
+                .password(user.getPassword())
+                .build();
+        return userDto;
+    }
+
     private UserDto mapToUserDto(User user) {
         UserDto userDto = UserDto.builder()
                 .id(user.getId())
