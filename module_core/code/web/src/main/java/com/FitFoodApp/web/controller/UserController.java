@@ -1,13 +1,16 @@
 package com.FitFoodApp.web.controller;
 
 import com.FitFoodApp.web.models.User;
+import jakarta.validation.Valid;
 import org.springframework.ui.Model;
 import com.FitFoodApp.web.dto.UserDto;
 import com.FitFoodApp.web.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
@@ -36,8 +39,31 @@ public class UserController {
     }
 
     @PostMapping("/users/new")
-    public String saveUser(@ModelAttribute("user") User user) {
-        userService.saveUser(user);
+    public String saveUser(@Valid @ModelAttribute("user") UserDto userDto, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("user", userDto);
+            return "users-create";
+        }
+        userService.saveUser(userDto);
+        return "redirect:/users";
+    }
+
+    @GetMapping("/users/{userId}/edit")
+    public String editUserForm(@PathVariable("userId") int userId, Model model) {
+        UserDto user = userService.findUserById(userId);
+        model.addAttribute("user", user);
+        return "users-edit";
+    }
+
+    @PostMapping("/users/{userId}/edit")
+    public String updateUser(@PathVariable("userId") int userId,
+                             @Valid @ModelAttribute("user") UserDto user,
+                             BindingResult result) {
+        if(result.hasErrors()) {
+            return "users-edit";
+        }
+        user.setId(userId);
+        userService.updateUser(user);
         return "redirect:/users";
     }
 }

@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <meta name="description" content=""/>
     <meta name="author" content=""/>
-    <title>Create User</title>
+    <title>Update account</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico"/>
     <!-- Core theme CSS (includes Bootstrap)-->
@@ -18,8 +18,9 @@
 <section layout:fragment="body">
     <div class="container">
         <div class="col-md-7 col-lg-8">
-            <h4 class="mb-3">Registration</h4>
-            <form role="form" method="post" th:action="@{/users/new}" th:object="${user}">
+            <h4 class="mb-3">Update your account</h4>
+            <form role="form" method="post" th:action="@{/users/{userId}/edit(userId=${user.id})}" th:object="${user}">
+                <input type="hidden" th:field="*{id}">
                 <div class="row g-3">
                     <div class="col-sm-6">
                         <label for="name" class="form-label">First name</label>
@@ -86,7 +87,7 @@
                 </div>
                 <div>
                     <br>
-                    <button class="w-100 btn btn-primary btn-lg" type="submit">Create account</button>
+                    <button class="w-100 btn btn-primary btn-lg" type="submit">Update your account</button>
                 </div>
             </form>
         </div>
