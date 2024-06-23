@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <title>Small Business - Start Bootstrap Template</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico"/>
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link th:href="@{/css/styles.css}" rel="stylesheet"/>
+</head>
+<body>
+<!-- Page Content-->
+<section layout:fragment="body">
+    <div class="container px-4 px-lg-5">
+        <!-- Content Row-->
+        <div th:each="user : ${users}" class="row gx-4 gx-lg-5">
+            <div class="col-md-4 mb-5">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <p th:text="${user.id}" class="card-title"></p>
+                        <p th:text="${user.name}" class="card-text"></p>
+                        <p th:text="${user.lastName}" class="card-text"></p>
+                        <p th:text="${user.userName}" class="card-text"></p>
+                        <p th:text="${user.email}" class="card-text"></p>
+                    </div>
+                    <div class="card-footer"><a class="btn btn-primary btn-sm" href="#!">More Info</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>
