@@ -64,6 +64,12 @@ public class UserServiceImpl implements UserService {
                 .userName(userDto.getUserName())
                 .email(userDto.getEmail())
                 .password(userDto.getPassword())
+                .height(userDto.getHeight())
+                .weight(userDto.getWeight())
+                .age(userDto.getAge())
+                .gender(userDto.getGender())
+                .lifestyle(userDto.getLifestyle())
+                .avatarPhotoUrl(userDto.getAvatarPhotoUrl())
                 .build();
         return user;
     }
@@ -76,6 +82,12 @@ public class UserServiceImpl implements UserService {
                 .userName(user.getUserName())
                 .email(user.getEmail())
                 .password(user.getPassword())
+                .height(user.getHeight())
+                .weight(user.getWeight())
+                .age(user.getAge())
+                .gender(user.getGender())
+                .lifestyle(user.getLifestyle())
+                .avatarPhotoUrl(user.getAvatarPhotoUrl())
                 .build();
         return userDto;
     }

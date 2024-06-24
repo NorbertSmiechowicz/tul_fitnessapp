@@ -16,9 +16,11 @@ public class ExerciseDto {
     private int id;
     private LocalDateTime date;
     private String name;
+    private String description;
+    private String visualisationPhoto;
     private String target;
     private int load;
     private int reps;
     private int workoutTime;
-    private boolean isCustom;
+    private boolean custom;
 }

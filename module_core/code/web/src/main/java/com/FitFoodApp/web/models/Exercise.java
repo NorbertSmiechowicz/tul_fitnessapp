@@ -21,11 +21,13 @@ public class Exercise {
     @CreationTimestamp
     private LocalDateTime date;
     private String name;
+    private String description;
+    private String visualisationPhoto;
     private String target;
     private int load;
     private int reps;
     private int workoutTime;
-    private boolean isCustom;
+    private boolean custom;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
