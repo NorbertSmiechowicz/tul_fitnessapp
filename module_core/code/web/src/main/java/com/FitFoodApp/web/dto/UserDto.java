@@ -1,5 +1,6 @@
 package com.FitFoodApp.web.dto;
 
+import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Builder;
 import lombok.Data;
@@ -18,4 +19,15 @@ public class UserDto {
     private String email;
     @NotEmpty(message = "Password is required")
     private String password;
+
+    @Nullable
+    private Integer height;
+    @Nullable
+    private Integer weight;
+    @Nullable
+    private Integer age;
+    @Nullable
+    private String gender;
+    @Nullable
+    private String lifestyle;
 }

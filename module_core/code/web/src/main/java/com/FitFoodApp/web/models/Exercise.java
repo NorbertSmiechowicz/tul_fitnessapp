@@ -21,7 +21,9 @@ public class Exercise {
     @CreationTimestamp
     private LocalDateTime date;
     private String name;
+    private String target;
     private int load;
     private int reps;
-    private int time;
+    private int workoutTime;
+    private boolean isCustom;
 }
