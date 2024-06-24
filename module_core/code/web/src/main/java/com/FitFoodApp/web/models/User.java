@@ -6,6 +6,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Builder
 @NoArgsConstructor
@@ -27,4 +30,8 @@ public class User {
     private Integer age;
     private String gender;
     private String lifestyle;
+    private String avatarPhotoUrl;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+    private Set<Exercise> exercises = new HashSet<>();
 }

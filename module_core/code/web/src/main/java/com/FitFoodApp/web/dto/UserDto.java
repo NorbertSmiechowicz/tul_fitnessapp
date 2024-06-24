@@ -30,4 +30,6 @@ public class UserDto {
     private String gender;
     @Nullable
     private String lifestyle;
+    @Nullable
+    private String avatarPhotoUrl;
 }
