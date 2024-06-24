@@ -31,6 +31,13 @@ public class UserController {
         return "users-list.html";
     }
 
+    @GetMapping("/users/{userId}")
+    public String clubDetail(@PathVariable("userId") int userId, Model model) {
+        UserDto userDto = userService.findUserById(userId);
+        model.addAttribute("user", userDto);
+        return "users-detail";
+    }
+
     @GetMapping("/users/new")
     public String createUserForm(Model model) {
         User user = new User();
