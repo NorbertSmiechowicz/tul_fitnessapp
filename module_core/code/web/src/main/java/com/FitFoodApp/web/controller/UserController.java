@@ -8,10 +8,7 @@ import com.FitFoodApp.web.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -66,6 +63,13 @@ public class UserController {
     public String deleteUser(@PathVariable("userId") int userId) {
         userService.delete(userId);
         return "redirect:/users";
+    }
+
+    @GetMapping("/users/search")
+    public String searchUser(@RequestParam(value = "query") String query, Model model) {
+        List<UserDto> users = userService.searchUsers(query);
+        model.addAttribute("users", users);
+        return "users-list";
     }
 
     @PostMapping("/users/{userId}/edit")

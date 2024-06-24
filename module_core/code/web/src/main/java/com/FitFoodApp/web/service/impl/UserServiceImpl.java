@@ -50,6 +50,12 @@ public class UserServiceImpl implements UserService {
         userRepository.deleteById(userId);
     }
 
+    @Override
+    public List<UserDto> searchUsers(String query) {
+        List<User> users = userRepository.searchUsers(query);
+        return users.stream().map(user -> mapToUserDto(user)).collect((Collectors.toList()));
+    }
+
     private User mapToUser(UserDto userDto) {
         User user = User.builder()
                 .id(userDto.getId())

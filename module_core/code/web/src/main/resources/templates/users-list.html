@@ -18,6 +18,11 @@
 <section layout:fragment="body">
     <div class="container px-4 px-lg-5">
         <!-- Content Row-->
+        <div>
+            <form th:action="@{/users/search}" class="form-inline my-2 my-lg-0 mb-3">
+            <input name="query" class="form-control me-sm-2 mb-5" type="search" placeholder="Search users" aria-label="Search">
+            </form>
+        </div>
         <div th:each="user : ${users}" class="row gx-4 gx-lg-5">
             <div class="col-md-4 mb-5">
                 <div class="card h-100">
