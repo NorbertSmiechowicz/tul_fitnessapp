@@ -45,6 +45,11 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
 
+    @Override
+    public void delete(int userId) {
+        userRepository.deleteById(userId);
+    }
+
     private User mapToUser(UserDto userDto) {
         User user = User.builder()
                 .id(userDto.getId())

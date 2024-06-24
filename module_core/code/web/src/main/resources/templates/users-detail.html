@@ -19,8 +19,8 @@
     <header class="py-5 bg-light border-bottom mb-4">
         <div class="container">
             <div class="text-center my-5">
+                <p class="lead mb-0">details about a user:</p>
                 <h1 class="fw-bolder" th:text="${user.userName}"></h1>
-                <p class="lead mb-0">A Bootstrap 5 starter layout for your next blog homepage</p>
             </div>
         </div>
     </header>
@@ -36,7 +36,7 @@
                         <div class="small text-muted">January 1, 2023</div>
                         <h2 class="card-title">About this user</h2>
                         <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
-                        <a class="btn btn-primary" href="#!">Read more →</a>
+                        <a class="btn btn-primary" th:href="@{/users/{userId}/delete(userId=${user.id})}">Delete this user</a>
                     </div>
                 </div>
                 <!-- Nested row for non-featured blog posts-->
@@ -47,7 +47,7 @@
                             <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
                             <div class="card-body">
                                 <div class="small text-muted">January 1, 2023</div>
-                                <h2 class="card-title h4">Post Title</h2>
+                                <h2 class="card-title h4">some statistics and results</h2>
                                 <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla.</p>
                                 <a class="btn btn-primary" href="#!">Read more →</a>
                             </div>
@@ -57,7 +57,7 @@
                             <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
                             <div class="card-body">
                                 <div class="small text-muted">January 1, 2023</div>
-                                <h2 class="card-title h4">Post Title</h2>
+                                <h2 class="card-title h4">Fav meals etc</h2>
                                 <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla.</p>
                                 <a class="btn btn-primary" href="#!">Read more →</a>
                             </div>

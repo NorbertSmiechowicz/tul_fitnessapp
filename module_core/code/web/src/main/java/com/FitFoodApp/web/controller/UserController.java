@@ -62,6 +62,12 @@ public class UserController {
         return "users-edit";
     }
 
+    @GetMapping("users/{userId}/delete")
+    public String deleteUser(@PathVariable("userId") int userId) {
+        userService.delete(userId);
+        return "redirect:/users";
+    }
+
     @PostMapping("/users/{userId}/edit")
     public String updateUser(@PathVariable("userId") int userId,
                              @Valid @ModelAttribute("user") UserDto user,
