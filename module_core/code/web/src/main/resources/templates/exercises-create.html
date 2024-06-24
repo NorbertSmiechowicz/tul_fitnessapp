@@ -16,7 +16,131 @@
 <body>
 <!-- Page Content-->
 <section layout:fragment="body">
+    <div class="container">
+        <div class="col-md-7 col-lg-8">
+            <h4 class="mb-3">Create a new exercise</h4>
+            <form role="form" method="post" th:action="@{/exercises/{userId}(userId=${userId})}" th:object="${exercise}">
+                <div class="row g-3">
 
+                    <div class="col-sm-6">
+                        <label for="date" class="form-label">The date ofo performing</label>
+                        <input
+                                type="datetime-local"
+                                class="form-control"
+                                id="date"
+                                name="date"
+                                th:field="*{date}"
+                                placeholder="date">
+                        <p th:if="${#fields.hasErrors('date')}" class="text-danger" th:errors="*{date}"></p>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <label for="name" class="form-label">Name of the exercise</label>
+                        <input
+                                type="text"
+                                class="form-control"
+                                id="name"
+                                name="name"
+                                th:field="*{name}"
+                                placeholder="name">
+                        <p th:if="${#fields.hasErrors('name')}" class="text-danger" th:errors="*{name}"></p>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <label for="description" class="form-label">Exercise description</label>
+                        <input
+                                type="text"
+                                class="form-control"
+                                id="description"
+                                name="description"
+                                th:field="*{description}"
+                                placeholder="description">
+                        <p th:if="${#fields.hasErrors('description')}" class="text-danger" th:errors="*{description}"></p>
+                    </div>
+
+                    <div class="col-12">
+                        <label for="visualisationPhoto" class="form-label">Visualisation photo url</label>
+                        <div class="input-group has-validation">
+                            <span class="input-group-text">@</span>
+                            <input
+                                    type="text"
+                                    class="form-control"
+                                    id="visualisationPhoto"
+                                    name="userName"
+                                    th:field="*{visualisationPhoto}"
+                                    placeholder="visualisationPhoto">
+                            <p th:if="${#fields.hasErrors('visualisationPhoto')}" class="text-danger" th:errors="*{visualisationPhoto}"></p>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <label for="target" class="form-label">Target muscles activated <span class="text-body-secondary">(Optional)</span></label>
+                        <input
+                                type="text"
+                                class="form-control"
+                                id="target"
+                                name="target"
+                                th:field="*{target}"
+                                placeholder="upper, lower, cardio, etc.">
+                        <p th:if="${#fields.hasErrors('target')}" class="text-danger" th:errors="*{target}"></p>
+                    </div>
+
+                    <div class="col-12">
+                        <label for="load" class="form-label">Load [kg]</label>
+                        <input
+                                type="text"
+                                class="form-control"
+                                id="load"
+                                name="load"
+                                th:field="*{load}"
+                                placeholder="load">
+                        <p th:if="${#fields.hasErrors('load')}" class="text-danger" th:errors="*{load}"></p>
+                    </div>
+
+                    <div class="col-12">
+                        <label for="reps" class="form-label">How many reps</label>
+                        <input
+                                type="text"
+                                class="form-control"
+                                id="reps"
+                                name="reps"
+                                th:field="*{reps}"
+                                placeholder="reps">
+                        <p th:if="${#fields.hasErrors('reps')}" class="text-danger" th:errors="*{reps}"></p>
+                    </div>
+
+                    <div class="col-12">
+                        <label for="workoutTime" class="form-label">How long did the workout last?</label>
+                        <input
+                                type="text"
+                                class="form-control"
+                                id="workoutTime"
+                                name="workoutTime"
+                                th:field="*{workoutTime}"
+                                placeholder="workoutTime">
+                        <p th:if="${#fields.hasErrors('workoutTime')}" class="text-danger" th:errors="*{workoutTime}"></p>
+                    </div>
+
+                    <div class="col-12">
+                        <label for="custom" class="form-label">Custom true by default</label>
+                        <input
+                                type="text"
+                                class="form-control"
+                                id="custom"
+                                name="custom"
+                                th:field="*{custom}"
+                                placeholder="custom">
+                        <p th:if="${#fields.hasErrors('custom')}" class="text-danger" th:errors="*{custom}"></p>
+                    </div>
+
+                </div>
+                <div>
+                    <br>
+                    <button class="w-100 btn btn-primary btn-lg" type="submit">Create exercise</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </section>
 </body>
 </html>
