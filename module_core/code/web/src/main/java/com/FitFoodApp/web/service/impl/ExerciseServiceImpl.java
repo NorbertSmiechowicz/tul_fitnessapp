@@ -38,4 +38,10 @@ public class ExerciseServiceImpl implements ExerciseService {
         return exercises.stream().map(exercise -> mapToExerciseDto(exercise)).collect(Collectors.toList());
     }
 
+    @Override
+    public ExerciseDto findByExerciseId(Integer exerciseId) {
+        Exercise exercise = exerciseRepository.findById(exerciseId).get();
+        return mapToExerciseDto(exercise);
+    }
+
 }

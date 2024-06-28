@@ -20,6 +20,13 @@ public class ExerciseController {
         this.exerciseService = exerciseService;
     }
 
+    @GetMapping("/exercises/{exerciseId}")
+    public String ViewEvent(@PathVariable("exerciseId") Integer exerciseId, Model model) {
+        ExerciseDto exerciseDto = exerciseService.findByExerciseId(exerciseId);
+        model.addAttribute("exercise", exerciseDto);
+        return "exercises-detail";
+    }
+
     @GetMapping("/exercises")
     public String exerciseList(Model model) {
         List<ExerciseDto> exercises = exerciseService.findAllExercises();
