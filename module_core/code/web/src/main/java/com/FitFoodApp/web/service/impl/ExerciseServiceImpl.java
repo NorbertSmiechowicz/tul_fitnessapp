@@ -8,7 +8,11 @@ import com.FitFoodApp.web.repository.UserRepository;
 import com.FitFoodApp.web.service.ExerciseService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import static com.FitFoodApp.web.mapper.ExerciseMapper.mapToExercise;
+import static com.FitFoodApp.web.mapper.ExerciseMapper.mapToExerciseDto;
 
 @Service
 public class ExerciseServiceImpl implements ExerciseService {
@@ -26,6 +30,12 @@ public class ExerciseServiceImpl implements ExerciseService {
         Exercise exercise = mapToExercise(exerciseDto);
         exercise.setUser(user);
         exerciseRepository.save(exercise);
+    }
+
+    @Override
+    public List<ExerciseDto> findAllExercises() {
+        List<Exercise> exercises = exerciseRepository.findAll();
+        return exercises.stream().map(exercise -> mapToExerciseDto(exercise)).collect(Collectors.toList());
     }
 
 }

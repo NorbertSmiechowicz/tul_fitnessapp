@@ -10,12 +10,21 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
+
 @Controller
 public class ExerciseController {
     private ExerciseService exerciseService;
 
     public ExerciseController(ExerciseService exerciseService) {
         this.exerciseService = exerciseService;
+    }
+
+    @GetMapping("/exercises")
+    public String exerciseList(Model model) {
+        List<ExerciseDto> exercises = exerciseService.findAllExercises();
+        model.addAttribute("exercises", exercises);
+        return "exercises-list";
     }
 
     @GetMapping("/exercises/{userId}/new")
