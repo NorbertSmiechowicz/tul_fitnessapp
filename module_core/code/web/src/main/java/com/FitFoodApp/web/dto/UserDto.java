@@ -5,6 +5,8 @@ import jakarta.validation.constraints.NotEmpty;
 import lombok.Builder;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 @Builder
 public class UserDto {
@@ -32,4 +34,5 @@ public class UserDto {
     private String lifestyle;
     @Nullable
     private String avatarPhotoUrl;
+    private List<ExerciseDto> exercises;
 }

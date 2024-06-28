@@ -8,6 +8,8 @@ import com.FitFoodApp.web.repository.UserRepository;
 import com.FitFoodApp.web.service.ExerciseService;
 import org.springframework.stereotype.Service;
 
+import static com.FitFoodApp.web.mapper.ExerciseMapper.mapToExercise;
+
 @Service
 public class ExerciseServiceImpl implements ExerciseService {
     private ExerciseRepository exerciseRepository;
@@ -26,18 +28,4 @@ public class ExerciseServiceImpl implements ExerciseService {
         exerciseRepository.save(exercise);
     }
 
-    private Exercise mapToExercise(ExerciseDto exerciseDto) {
-        return Exercise.builder()
-                .id(exerciseDto.getId())
-                .date(exerciseDto.getDate())
-                .name(exerciseDto.getName())
-                .description(exerciseDto.getDescription())
-                .visualisationPhoto(exerciseDto.getVisualisationPhoto())
-                .target(exerciseDto.getTarget())
-                .load(exerciseDto.getLoad())
-                .reps(exerciseDto.getReps())
-                .workoutTime(exerciseDto.getWorkoutTime())
-                .custom(exerciseDto.isCustom())
-                .build();
-    }
 }

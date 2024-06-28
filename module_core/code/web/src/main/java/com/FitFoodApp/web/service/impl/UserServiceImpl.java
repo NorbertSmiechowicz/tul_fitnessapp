@@ -10,6 +10,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.FitFoodApp.web.mapper.UserMapper.mapToUser;
+import static com.FitFoodApp.web.mapper.UserMapper.mapToUserDto;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -54,41 +57,5 @@ public class UserServiceImpl implements UserService {
     public List<UserDto> searchUsers(String query) {
         List<User> users = userRepository.searchUsers(query);
         return users.stream().map(user -> mapToUserDto(user)).collect((Collectors.toList()));
-    }
-
-    private User mapToUser(UserDto userDto) {
-        User user = User.builder()
-                .id(userDto.getId())
-                .name(userDto.getName())
-                .lastName(userDto.getLastName())
-                .userName(userDto.getUserName())
-                .email(userDto.getEmail())
-                .password(userDto.getPassword())
-                .height(userDto.getHeight())
-                .weight(userDto.getWeight())
-                .age(userDto.getAge())
-                .gender(userDto.getGender())
-                .lifestyle(userDto.getLifestyle())
-                .avatarPhotoUrl(userDto.getAvatarPhotoUrl())
-                .build();
-        return user;
-    }
-
-    private UserDto mapToUserDto(User user) {
-        UserDto userDto = UserDto.builder()
-                .id(user.getId())
-                .name(user.getName())
-                .lastName(user.getLastName())
-                .userName(user.getUserName())
-                .email(user.getEmail())
-                .password(user.getPassword())
-                .height(user.getHeight())
-                .weight(user.getWeight())
-                .age(user.getAge())
-                .gender(user.getGender())
-                .lifestyle(user.getLifestyle())
-                .avatarPhotoUrl(user.getAvatarPhotoUrl())
-                .build();
-        return userDto;
     }
 }

@@ -6,7 +6,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -33,5 +35,5 @@ public class User {
     private String avatarPhotoUrl;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
-    private Set<Exercise> exercises = new HashSet<>();
+    private List<Exercise> exercises = new ArrayList<>();
 }
