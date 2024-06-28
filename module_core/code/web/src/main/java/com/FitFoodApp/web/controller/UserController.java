@@ -29,7 +29,7 @@ public class UserController {
     }
 
     @GetMapping("/users/{userId}")
-    public String clubDetail(@PathVariable("userId") int userId, Model model) {
+    public String userDetail(@PathVariable("userId") int userId, Model model) {
         UserDto userDto = userService.findUserById(userId);
         model.addAttribute("user", userDto);
         return "users-detail";
