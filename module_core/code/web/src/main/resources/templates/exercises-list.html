@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <title>Exercises list</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico"/>
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link th:href="@{/css/styles.css}" rel="stylesheet"/>
+</head>
+<body>
+<!-- Page Content-->
+<section layout:fragment="body">
+    <div class="container px-4 px-lg-5">
+        <!-- Content Row-->
+<!--        <div>-->
+<!--            <form th:action="@{/users/search}" class="form-inline my-2 my-lg-0 mb-3">-->
+<!--                <input name="query" class="form-control me-sm-2 mb-5" type="search" placeholder="Search users" aria-label="Search">-->
+<!--            </form>-->
+<!--        </div>-->
+        <div th:each="exercise : ${exercises}" class="row gx-4 gx-lg-5">
+            <div class="col-md-4 mb-5">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <p th:text="${exercise.id}" class="card-title"></p>
+                        <p th:text="${exercise.name}" class="card-text"></p>
+                        <p th:text="${exercise.load}" class="card-text"></p>
+                        <p th:text="${exercise.reps}" class="card-text"></p>
+                    </div>
+                    <div>
+                        <img class="img-fluid rounded-3 mb-3" th:src="${exercise.visualisationPhoto}" alt="..."/>
+                    </div>
+                    <div class="card-footer">
+                        <a class="btn btn-primary">Edit</a>
+                        <a class="btn btn-primary" th:href="@{/exercises/{exerciseId}(exerciseId=${exercise.id})}">Detail</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

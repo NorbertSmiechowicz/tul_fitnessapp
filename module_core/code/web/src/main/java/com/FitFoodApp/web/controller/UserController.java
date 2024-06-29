@@ -8,10 +8,7 @@ import com.FitFoodApp.web.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,6 +26,13 @@ public class UserController {
         List<UserDto> users = userService.findAllUsers();
         model.addAttribute("users", users);
         return "users-list.html";
+    }
+
+    @GetMapping("/users/{userId}")
+    public String userDetail(@PathVariable("userId") int userId, Model model) {
+        UserDto userDto = userService.findUserById(userId);
+        model.addAttribute("user", userDto);
+        return "users-detail";
     }
 
     @GetMapping("/users/new")
@@ -53,6 +57,19 @@ public class UserController {
         UserDto user = userService.findUserById(userId);
         model.addAttribute("user", user);
         return "users-edit";
+    }
+
+    @GetMapping("users/{userId}/delete")
+    public String deleteUser(@PathVariable("userId") int userId) {
+        userService.delete(userId);
+        return "redirect:/users";
+    }
+
+    @GetMapping("/users/search")
+    public String searchUser(@RequestParam(value = "query") String query, Model model) {
+        List<UserDto> users = userService.searchUsers(query);
+        model.addAttribute("users", users);
+        return "users-list";
     }
 
     @PostMapping("/users/{userId}/edit")

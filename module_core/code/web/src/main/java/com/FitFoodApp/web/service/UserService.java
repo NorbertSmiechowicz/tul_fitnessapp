@@ -7,9 +7,14 @@ import java.util.List;
 
 public interface UserService {
     List<UserDto> findAllUsers();
+
     User saveUser(UserDto userDto);
 
     UserDto findUserById(int userId);
 
     void updateUser(UserDto user);
+
+    void delete(int userId);
+
+    List<UserDto> searchUsers(String query);
 }

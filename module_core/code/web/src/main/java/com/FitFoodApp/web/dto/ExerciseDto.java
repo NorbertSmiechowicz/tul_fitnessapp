@@ -1,5 +1,5 @@
-package com.FitFoodApp.web.models;
-import jakarta.persistence.*;
+package com.FitFoodApp.web.dto;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,16 +9,11 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.time.LocalDateTime;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Builder
-@Entity
-@Table(name = "exercises")
-public class Exercise {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+@AllArgsConstructor
+@NoArgsConstructor
+public class ExerciseDto {
     private int id;
-    @CreationTimestamp
     private LocalDateTime date;
     private String name;
     private String description;
@@ -28,8 +23,4 @@ public class Exercise {
     private int reps;
     private int workoutTime;
     private boolean custom;
-
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
 }

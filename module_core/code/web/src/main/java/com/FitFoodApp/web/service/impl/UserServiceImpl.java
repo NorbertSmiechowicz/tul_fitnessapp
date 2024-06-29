@@ -10,6 +10,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.FitFoodApp.web.mapper.UserMapper.mapToUser;
+import static com.FitFoodApp.web.mapper.UserMapper.mapToUserDto;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -45,27 +48,14 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
 
-    private User mapToUser(UserDto userDto) {
-        User user = User.builder()
-                .id(userDto.getId())
-                .name(userDto.getName())
-                .lastName(userDto.getLastName())
-                .userName(userDto.getUserName())
-                .email(userDto.getEmail())
-                .password(userDto.getPassword())
-                .build();
-        return user;
+    @Override
+    public void delete(int userId) {
+        userRepository.deleteById(userId);
     }
 
-    private UserDto mapToUserDto(User user) {
-        UserDto userDto = UserDto.builder()
-                .id(user.getId())
-                .name(user.getName())
-                .lastName(user.getLastName())
-                .userName(user.getUserName())
-                .email(user.getEmail())
-                .password(user.getPassword())
-                .build();
-        return userDto;
+    @Override
+    public List<UserDto> searchUsers(String query) {
+        List<User> users = userRepository.searchUsers(query);
+        return users.stream().map(user -> mapToUserDto(user)).collect((Collectors.toList()));
     }
 }
