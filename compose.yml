@@ -1,4 +1,15 @@
 version: '3.18'
 services:
-  ai_model:
-    
+  module_core:
+    build: ./module_core/code/web
+    ports:
+      - "8080:8080"
+  postgres:
+    image:
+      postgres:16.3-alpine3.20
+    volumes:
+      - ~/apps/posgres:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=FitFoodApp
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=fitfoodappdb
